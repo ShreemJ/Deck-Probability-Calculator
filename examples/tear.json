@@ -1,0 +1,428 @@
+{
+    "deck_size": 42,
+    "hand_size": 5,
+    "cards": {
+        "Tearlaments Kashtira": 3,
+        "Shaddoll Beast": 1,
+        "Fairy Tail - Snow": 1,
+        "Tearlaments Scheiren": 3,
+        "Tearlaments Reinoheart": 2,
+        "Kelbek the Ancient Vanguard": 3,
+        "Mudora the Sword Oracle": 3,
+        "Agido the Ancient Sentinel": 2,
+        "Keldo the Sacred Protector": 3,
+        "Tearlaments Havnis": 3,
+        "Tearlaments Merrli": 2,
+        "Maxx \"C\"": 3,
+        "Herald of Orange Light": 3,
+        "Instant Fusion": 3,
+        "Painful Choice": 3,
+        "Tearlaments Scream": 1,
+        "Tearlaments Sulliek": 2,
+        "Tearlaments Cryme": 1
+    },
+    "card_types": {
+        "Tearlaments": [
+            "Tearlaments Havnis",
+            "Tearlaments Scream",
+            "Tearlaments Merrli",
+            "Tearlaments Scheiren",
+            "Tearlaments Kashtira",
+            "Tearlaments Sulliek",
+            "Tearlaments Reinoheart",
+            "Tearlaments Cryme"
+        ],
+        "Miller": [
+            "Agido the Ancient Sentinel",
+            "Kelbek the Ancient Vanguard"
+        ],
+        "Monsters": [
+            "Tearlaments Havnis",
+            "Keldo the Sacred Protector",
+            "Herald of Orange Light",
+            "Maxx \"C\"",
+            "Tearlaments Merrli",
+            "Tearlaments Kashtira",
+            "Fairy Tail - Snow",
+            "Agido the Ancient Sentinel",
+            "Shaddoll Beast",
+            "Kelbek the Ancient Vanguard",
+            "Tearlaments Scheiren",
+            "Tearlaments Reinoheart",
+            "Mudora the Sword Oracle"
+        ],
+        "Starting Mills": [
+            "Tearlaments Sulliek",
+            "Tearlaments Havnis",
+            "Tearlaments Merrli",
+            "Tearlaments Kashtira",
+            "Agido the Ancient Sentinel",
+            "Kelbek the Ancient Vanguard",
+            "Tearlaments Scheiren",
+            "Tearlaments Reinoheart"
+        ],
+        "Good Mills": [
+            "Tearlaments Sulliek",
+            "Tearlaments Havnis",
+            "Keldo the Sacred Protector",
+            "Tearlaments Scream",
+            "Tearlaments Merrli",
+            "Tearlaments Kashtira",
+            "Fairy Tail - Snow",
+            "Agido the Ancient Sentinel",
+            "Shaddoll Beast",
+            "Kelbek the Ancient Vanguard",
+            "Tearlaments Scheiren",
+            "Tearlaments Reinoheart",
+            "Mudora the Sword Oracle"
+        ],
+        "Earth Fairys": [
+            "Kelbek the Ancient Vanguard",
+            "Keldo the Sacred Protector",
+            "Agido the Ancient Sentinel",
+            "Mudora the Sword Oracle"
+        ],
+        "Shufflers": [
+            "Keldo the Sacred Protector",
+            "Mudora the Sword Oracle"
+        ],
+        "Lv 4s": [
+            "Keldo the Sacred Protector",
+            "Agido the Ancient Sentinel",
+            "Fairy Tail - Snow",
+            "Kelbek the Ancient Vanguard",
+            "Tearlaments Scheiren",
+            "Tearlaments Reinoheart",
+            "Mudora the Sword Oracle"
+        ],
+        "Fairy": [
+            "Kelbek the Ancient Vanguard",
+            "Mudora the Sword Oracle",
+            "Herald of Orange Light",
+            "Keldo the Sacred Protector",
+            "Agido the Ancient Sentinel"
+        ],
+        "Starting Monster Mills": [
+            "Agido the Ancient Sentinel",
+            "Tearlaments Havnis",
+            "Kelbek the Ancient Vanguard",
+            "Tearlaments Merrli",
+            "Tearlaments Kashtira",
+            "Tearlaments Scheiren"
+        ],
+        "Handtraps": [
+            "Tearlaments Havnis",
+            "Maxx \"C\"",
+            "Kelbek the Ancient Vanguard"
+        ]
+    },
+    "combos": {
+        "Tearlaments Kashtira + Another Tear": {
+            "requirements": {
+                "Tearlaments Kashtira": [
+                    1,
+                    3
+                ],
+                "Tearlaments": [
+                    1,
+                    17
+                ]
+            },
+            "deck_size": 42,
+            "hand_size": 5,
+            "mulligans": {
+                "enabled": false,
+                "count": 0,
+                "first_free": false
+            }
+        },
+        "Orange Light + Miller": {
+            "requirements": {
+                "Herald of Orange Light": [
+                    1,
+                    3
+                ],
+                "Miller": [
+                    1,
+                    5
+                ]
+            },
+            "deck_size": 42,
+            "hand_size": 5,
+            "mulligans": {
+                "enabled": false,
+                "count": 0,
+                "first_free": false
+            }
+        },
+        "Shuffler + Earth Fairy": {
+            "requirements": {
+                "Earth Fairys": [
+                    1,
+                    5
+                ],
+                "Shufflers": [
+                    1,
+                    5
+                ]
+            },
+            "deck_size": 42,
+            "hand_size": 5,
+            "mulligans": {
+                "enabled": false,
+                "count": 0,
+                "first_free": false,
+                "type": "traditional"
+            }
+        },
+        "Scheiren + Monster": {
+            "requirements": {
+                "Tearlaments Scheiren": [
+                    1,
+                    3
+                ],
+                "Monsters": [
+                    1,
+                    32
+                ]
+            },
+            "deck_size": 42,
+            "hand_size": 5,
+            "mulligans": {
+                "enabled": false,
+                "count": 0,
+                "first_free": false,
+                "type": "traditional"
+            }
+        },
+        "Lv 4": {
+            "requirements": {
+                "Lv 4s": [
+                    1,
+                    5
+                ]
+            },
+            "deck_size": 42,
+            "hand_size": 5,
+            "mulligans": {
+                "enabled": false,
+                "count": 0,
+                "first_free": false,
+                "type": "traditional"
+            }
+        },
+        "Orange Light + Fairy": {
+            "requirements": {
+                "Herald of Orange Light": [
+                    1,
+                    3
+                ],
+                "Fairy": [
+                    1,
+                    14
+                ]
+            },
+            "deck_size": 42,
+            "hand_size": 5,
+            "mulligans": {
+                "enabled": false,
+                "count": 0,
+                "first_free": false,
+                "type": "traditional"
+            }
+        },
+        "Starter Mill in 3": {
+            "requirements": {
+                "Starting Mills": [
+                    1,
+                    3
+                ]
+            },
+            "deck_size": 37,
+            "hand_size": 3,
+            "mulligans": {
+                "enabled": false,
+                "count": 0,
+                "first_free": false,
+                "type": "traditional"
+            }
+        },
+        "Starting Mill in 5": {
+            "requirements": {
+                "Starting Mills": [
+                    1,
+                    5
+                ]
+            },
+            "deck_size": 37,
+            "hand_size": 5,
+            "mulligans": {
+                "enabled": false,
+                "count": 0,
+                "first_free": false,
+                "type": "traditional"
+            }
+        },
+        "Scheiren + Starting Monster": {
+            "requirements": {
+                "Tearlaments Scheiren": [
+                    1,
+                    3
+                ],
+                "Starting Monster Mills": [
+                    1,
+                    16
+                ]
+            },
+            "deck_size": 42,
+            "hand_size": 5,
+            "mulligans": {
+                "enabled": false,
+                "count": 0,
+                "first_free": false,
+                "type": "traditional"
+            }
+        },
+        "Shuffler + Miller": {
+            "requirements": {
+                "Shufflers": [
+                    1,
+                    6
+                ],
+                "Miller": [
+                    1,
+                    5
+                ]
+            },
+            "deck_size": 42,
+            "hand_size": 5,
+            "mulligans": {
+                "enabled": false,
+                "count": 0,
+                "first_free": false,
+                "type": "traditional"
+            }
+        },
+        "Other Handtraps": {
+            "requirements": {
+                "Handtraps": [
+                    1,
+                    9
+                ]
+            },
+            "deck_size": 42,
+            "hand_size": 5,
+            "mulligans": {
+                "enabled": false,
+                "count": 0,
+                "first_free": false,
+                "type": "traditional"
+            }
+        }
+    },
+    "combo_sets": {
+        "Turn 0 Play": {
+            "expression": [
+                "Tearlaments Kashtira + Another Tear",
+                "OR",
+                "Orange Light + Miller",
+                "OR",
+                "Tearlaments Havnis"
+            ],
+            "deck_size": 42,
+            "hand_size": 5,
+            "mulligans": {
+                "enabled": false,
+                "count": 0,
+                "first_free": false,
+                "type": "traditional"
+            }
+        },
+        "2 Lv 4 monsters": {
+            "expression": [
+                "Lv 4",
+                "AND",
+                "(",
+                "Shuffler + Earth Fairy",
+                "OR",
+                "Scheiren + Monster",
+                ")"
+            ],
+            "deck_size": 42,
+            "hand_size": 5,
+            "mulligans": {
+                "enabled": false,
+                "count": 0,
+                "first_free": false,
+                "type": "traditional"
+            }
+        },
+        "Starter": {
+            "expression": [
+                "Tearlaments Reinoheart",
+                "OR",
+                "Scheiren + Starting Monster",
+                "OR",
+                "Instant Fusion",
+                "OR",
+                "Painful Choice",
+                "OR",
+                "(",
+                "Starter Mill in 3",
+                "AND",
+                "(",
+                "Tearlaments Kashtira + Another Tear",
+                "OR",
+                "Scheiren + Monster",
+                "OR",
+                "Tearlaments Merrli",
+                ")",
+                ")",
+                "OR",
+                "(",
+                "Starting Mill in 5",
+                "AND",
+                "Shuffler + Miller",
+                ")"
+            ],
+            "deck_size": 42,
+            "hand_size": 5,
+            "mulligans": {
+                "enabled": false,
+                "count": 0,
+                "first_free": false,
+                "type": "traditional"
+            }
+        },
+        "1 Handtrap": {
+            "expression": [
+                "Tearlaments Kashtira + Another Tear",
+                "OR",
+                "Orange Light + Fairy",
+                "OR",
+                "Other Handtraps"
+            ],
+            "deck_size": 42,
+            "hand_size": 5,
+            "mulligans": {
+                "enabled": false,
+                "count": 0,
+                "first_free": false,
+                "type": "traditional"
+            }
+        }
+    },
+    "card_type_cache": {
+        "Tearlaments": 17,
+        "Miller": 5,
+        "Monsters": 32,
+        "Starting Mills": 20,
+        "Good Mills": 29,
+        "Earth Fairys": 11,
+        "Shufflers": 6,
+        "Lv 4s": 17,
+        "Fairy": 14,
+        "Starting Monster Mills": 16,
+        "Handtraps": 9
+    }
+}

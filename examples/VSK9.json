@@ -1,0 +1,269 @@
+{
+    "deck_size": 40,
+    "hand_size": 5,
+    "cards": {
+        "Maxx \"C\"": 2,
+        "Ash Blossom & Joyous Spring": 3,
+        "Vanquish Soul Dr. Mad Love": 3,
+        "Vanquish Soul Razen": 3,
+        "Mulcharmy Fuwalos": 3,
+        "Vanquish Soul Jiaolong": 3,
+        "K9 - 17 Izuna": 3,
+        "K9 - 66a Jokull": 3,
+        "K9 - 66b Lantern": 1,
+        "K9 - \u00d8\u00d8 Lupus": 1,
+        "Vanquish Soul Hollie Sue": 3,
+        "Vanquish Soul Heavy Borger": 3,
+        "Vanquish Soul Caesar Valius": 1,
+        "Reinforcement of the Army": 1,
+        "Stake your Soul!": 3,
+        "Vanquish Soul, Start!": 1,
+        "\"Case of K9\"": 1,
+        "K9 - EX Forced Liberation": 1,
+        "Vanquish Soul Snow Devil": 1
+    },
+    "card_types": {
+        "VS Monster": [
+            "Vanquish Soul Jiaolong",
+            "Vanquish Soul Caesar Valius",
+            "Vanquish Soul Razen",
+            "Vanquish Soul Heavy Borger",
+            "Vanquish Soul Hollie Sue",
+            "Vanquish Soul Dr. Mad Love"
+        ],
+        "Hollie Sue": [
+            "Vanquish Soul Hollie Sue"
+        ],
+        "Earth Monsters": [
+            "K9 - 17 Izuna",
+            "K9 - \u00d8\u00d8 Lupus",
+            "Maxx \"C\"",
+            "Vanquish Soul Caesar Valius"
+        ],
+        "Dark Monsters": [
+            "Vanquish Soul Heavy Borger",
+            "K9 - 66a Jokull",
+            "K9 - 66b Lantern",
+            "Vanquish Soul Dr. Mad Love"
+        ],
+        "Fire Monsters": [
+            "Vanquish Soul Jiaolong",
+            "Ash Blossom & Joyous Spring",
+            "Vanquish Soul Razen"
+        ]
+    },
+    "combos": {
+        "Hollie Sue + Another VS": {
+            "requirements": {
+                "VS Monster": [
+                    1,
+                    16
+                ],
+                "Hollie Sue": [
+                    1,
+                    3
+                ]
+            },
+            "deck_size": 40,
+            "hand_size": 5,
+            "mulligans": {
+                "enabled": false,
+                "count": 0,
+                "first_free": false,
+                "type": "traditional"
+            }
+        },
+        "Dark + Fire + VS": {
+            "requirements": {
+                "VS Monster": [
+                    1,
+                    16
+                ],
+                "Dark Monsters": [
+                    1,
+                    10
+                ],
+                "Fire Monsters": [
+                    1,
+                    9
+                ]
+            },
+            "deck_size": 40,
+            "hand_size": 5,
+            "mulligans": {
+                "enabled": false,
+                "count": 0,
+                "first_free": false,
+                "type": "traditional"
+            }
+        },
+        "Hollie Sue": {
+            "requirements": {
+                "Hollie Sue": [
+                    1,
+                    3
+                ]
+            },
+            "deck_size": 40,
+            "hand_size": 5,
+            "mulligans": {
+                "enabled": false,
+                "count": 0,
+                "first_free": false,
+                "type": "traditional"
+            }
+        },
+        "Dark + Earth + VS": {
+            "requirements": {
+                "VS Monster": [
+                    1,
+                    16
+                ],
+                "Earth Monsters": [
+                    1,
+                    10
+                ],
+                "Dark Monsters": [
+                    1,
+                    10
+                ]
+            },
+            "deck_size": 40,
+            "hand_size": 5,
+            "mulligans": {
+                "enabled": false,
+                "count": 0,
+                "first_free": false,
+                "type": "traditional"
+            }
+        },
+        "VS": {
+            "requirements": {
+                "VS Monster": [
+                    1,
+                    16
+                ]
+            },
+            "deck_size": 40,
+            "hand_size": 5,
+            "mulligans": {
+                "enabled": false,
+                "count": 0,
+                "first_free": false,
+                "type": "traditional"
+            }
+        },
+        "VS + Dark": {
+            "requirements": {
+                "VS Monster": [
+                    1,
+                    16
+                ],
+                "Dark Monsters": [
+                    1,
+                    10
+                ]
+            },
+            "deck_size": 40,
+            "hand_size": 5,
+            "mulligans": {
+                "enabled": false,
+                "count": 0,
+                "first_free": false,
+                "type": "traditional"
+            }
+        },
+        "Earth": {
+            "requirements": {
+                "Earth Monsters": [
+                    1,
+                    10
+                ]
+            },
+            "deck_size": 40,
+            "hand_size": 5,
+            "mulligans": {
+                "enabled": false,
+                "count": 0,
+                "first_free": false,
+                "type": "traditional"
+            }
+        },
+        "Fire": {
+            "requirements": {
+                "Fire Monsters": [
+                    1,
+                    9
+                ]
+            },
+            "deck_size": 40,
+            "hand_size": 5,
+            "mulligans": {
+                "enabled": false,
+                "count": 0,
+                "first_free": false,
+                "type": "traditional"
+            }
+        }
+    },
+    "combo_sets": {
+        "Hollie Sue + VS + Dark + Fire": {
+            "expression": [
+                "Hollie Sue",
+                "AND",
+                "Dark + Fire + VS"
+            ],
+            "deck_size": 40,
+            "hand_size": 5,
+            "mulligans": {
+                "enabled": false,
+                "count": 0,
+                "first_free": false,
+                "type": "traditional"
+            }
+        },
+        "Hollie Sue + VS + Dark + Earth": {
+            "expression": [
+                "Hollie Sue",
+                "AND",
+                "Dark + Earth + VS"
+            ],
+            "deck_size": 40,
+            "hand_size": 5,
+            "mulligans": {
+                "enabled": false,
+                "count": 0,
+                "first_free": false,
+                "type": "traditional"
+            }
+        },
+        "Hollie Sue + VS + Dark + Fire/Earth": {
+            "expression": [
+                "Hollie Sue",
+                "AND",
+                "VS + Dark",
+                "AND",
+                "(",
+                "Earth",
+                "OR",
+                "Fire",
+                ")"
+            ],
+            "deck_size": 40,
+            "hand_size": 5,
+            "mulligans": {
+                "enabled": false,
+                "count": 0,
+                "first_free": false,
+                "type": "traditional"
+            }
+        }
+    },
+    "card_type_cache": {
+        "VS Monster": 16,
+        "Hollie Sue": 3,
+        "Earth Monsters": 7,
+        "Dark Monsters": 10,
+        "Fire Monsters": 9
+    }
+}
