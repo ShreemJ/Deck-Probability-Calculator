@@ -1,10 +1,8 @@
 from collections import defaultdict, Counter, deque
 from math import comb
-import numpy as np
 from random import shuffle
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from rich.table import Table
-from functools import lru_cache
 
 from utility import *
 from config import console, state
@@ -122,7 +120,6 @@ def combo_type_probability(deck_size, hand_size, card_count, card_types, combos,
         raise ValueError(f"Sum of card counts ({total_card_count}) exceeds deck size ({deck_size})")
     results = {}
 
-    @lru_cache(maxsize=None)
     def generate_counts(cards, hand_size, current_counts, index, constraints, result, card_counts):
         if index == len(cards):
             if sum(current_counts.values()) == hand_size:
@@ -368,8 +365,7 @@ def combo_set_probability(set_config, card_counts, card_types, combos_constraint
     if unspecified_count > 0:
         all_cards_this_combo["Unspecified"] = unspecified_count
 
-    @lru_cache(maxsize=None)
-    def generate_counts(cards, hand_size, current_counts, index, expression, replacements, deck_counts, result):
+    def generate_counts_with_replacements(cards, hand_size, current_counts, index, expression, replacements, deck_counts, result):
         if index == len(cards):
             if sum(current_counts.values()) == hand_size:
                 hand = []
@@ -386,10 +382,9 @@ def combo_set_probability(set_config, card_counts, card_types, combos_constraint
         max_count = min(deck_counts[card], hand_size - sum(current_counts.values()))
         for count in range(max_count + 1):
             current_counts[card] = count
-            generate_counts(cards, hand_size, current_counts, index + 1, expression, replacements, deck_counts, result)
+            generate_counts_with_replacements(cards, hand_size, current_counts, index + 1, expression, replacements, deck_counts, result)
             current_counts[card] = 0
 
-    @lru_cache(maxsize=None)
     def single_hit(h, cards_to_return=0):
         cards = list(all_cards_this_combo.keys())
         result = [0.0]
@@ -505,7 +500,7 @@ def combo_set_probability(set_config, card_counts, card_types, combos_constraint
                                 return
                         new_deck["Unspecified"] = new_deck.get("Unspecified", 0) + cards_to_replace
                         new_result = [0.0]
-                        generate_counts(list(new_deck.keys()), cards_to_replace, defaultdict(int), 0, set_config["expression"], cards_to_replace, new_deck, new_result)
+                        generate_counts_with_replacements(list(new_deck.keys()), cards_to_replace, defaultdict(int), 0, set_config["expression"], cards_to_replace, new_deck, new_result)
                         prob = 1.0
                         for c, n in curr.items():
                             prob *= comb(all_cards_this_combo[c], n)
@@ -564,40 +559,82 @@ def get_combo_relevant_cards(combo_expr, combos, card_types):
 
 def build_full_deck_with_unspecified(deck_counts, deck_size):
     full_deck = []
+    total_cards = sum(deck_counts.values())
     for card, count in deck_counts.items():
         full_deck.extend([card] * count)
-    if deck_size > len(full_deck):
-        full_deck.extend(["Unspecified"] * (deck_size - len(full_deck)))
-    return np.array(full_deck)
+    if deck_size > total_cards:
+        full_deck.extend(["Unspecified"] * (deck_size - total_cards))
+    return full_deck
 
 def single_trial_combo_type(deck_counts, default_hand_size, card_types, combo_data):
     deck_size = combo_data.get("deck_size", sum(deck_counts.values()))
     hand_size = combo_data.get("hand_size", default_hand_size)
+    requirements = combo_data["requirements"]
+
     full_deck = build_full_deck_with_unspecified(deck_counts, deck_size)
-    indices = np.random.choice(len(full_deck), hand_size, replace=False)
-    hand = full_deck[indices]
-    return 1 if hand_satisfies_combo(hand, combo_data["requirements"], card_types) else 0
+    for card, count in deck_counts.items():
+        full_deck.extend([card] * count)
+    n_full = len(full_deck)
+    if deck_size > n_full or hand_size > deck_size:
+        return 0
+    relevant_cards = set()
+    for key, _ in requirements.items():
+        if key in card_types:
+            relevant_cards.update(card_types[key])
+        else:
+            relevant_cards.add(key)
+
+    mandatory_cards = []
+    for c in relevant_cards:
+        mandatory_cards.extend([c] * deck_counts.get(c, 0))
+
+    leftover_cards = []
+    for c, cnt in deck_counts.items():
+        if c not in relevant_cards:
+            leftover_cards.extend([c] * cnt)
+
+    trial_deck = list(mandatory_cards)
+    remaining_slots = deck_size - len(trial_deck)
+    if remaining_slots < 0:
+        trial_deck = trial_deck[:deck_size]
+        remaining_slots = 0
+
+    if remaining_slots > len(leftover_cards):
+        trial_deck.extend(leftover_cards)
+    else:
+        shuffle(leftover_cards)
+        trial_deck.extend(leftover_cards[:remaining_slots])
+
+    if hand_size > len(trial_deck):
+        return 0
+
+    shuffle(trial_deck)
+    hand = trial_deck[:hand_size]
+
+    if hand_satisfies_combo(hand, requirements, card_types):
+        return 1
+    return 0
 
 def monte_carlo_combo_type_probability(deck_counts, default_hand_size, card_types, combos, trials=10000, max_workers=None):
     results = {name: 0 for name in combos}
-    batch_size = trials // max_workers if max_workers else trials
-    def run_batch(start, end):
+
+    def run_trials_for_combo(combo_data):
         hits = 0
-        for _ in range(start, end):
-            hits += single_trial_combo_type(deck_counts, default_hand_size, card_types, combos[name])
+        for _ in range(trials):
+            hits += single_trial_combo_type(deck_counts, default_hand_size, card_types, combo_data)
         return hits
 
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
         futures = {
-            executor.submit(run_batch, i, min(i + batch_size, trials)): name
-            for name in combos
-            for i in range(0, trials, batch_size)
+            executor.submit(run_trials_for_combo, data): name
+            for name, data in combos.items()
         }
-        for future in as_completed(futures):
-            results[futures[future]] += future.result()
 
-    for name in results:
-        results[name] /= trials
+        for future in as_completed(futures):
+            combo_name = futures[future]
+            hits = future.result()
+            results[combo_name] = hits / trials
+
     return results
 
 def single_trial_combo_set_probability(deck_counts, deck_size, hand_size, combo_tree, combos, card_types):
