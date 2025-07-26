@@ -1,0 +1,7 @@
+rich
+base64
+numpy
+matplotlib
+json
+csv
+pyautogui
