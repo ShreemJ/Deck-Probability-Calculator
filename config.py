@@ -56,7 +56,8 @@ y_axis_options = {
     "2": "P(X ≠ k)",
     "3": "P(X ≤ k)",
     "4": "P(X ≥ k)",
-    "5": "P(k_1 ≤ X ≤ k_2)"
+    "5": "P(k_1 ≤ X ≤ k_2)",
+    "6": "Expected Number of Cards"
 }
 
 mulligan_types = ["Traditional", "No Penalty", "London", "Partial",  "Partial No Penalty"]

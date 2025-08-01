@@ -12,15 +12,16 @@ from probabilities import *
 from config import console
 
 
-def graph_set_up():
+def graph_set_up(y_axis = 0):
     width, height = size()
     fig, ax = plt.subplots(figsize=(width/150, height/150))
     fig.patch.set_facecolor('black')
     ax.set_facecolor('black')
     ax.set_ylabel("Probability", color='white')
     ax.tick_params(colors='white')
-    ax.set_yticks(np.arange(0, 1.01, 0.1))
-    ax.set_yticks(np.arange(0, 1.01, 0.02), minor=True)
+    if y_axis != "6":
+        ax.set_yticks(np.arange(0, 1.01, 0.1))
+        ax.set_yticks(np.arange(0, 1.01, 0.02), minor=True)
     ax.grid(True, linestyle='--', alpha=0.5, color='white')
     ax.xaxis.set_major_locator(MaxNLocator(integer=True))
     ax.set_ylim(0, 1)
@@ -187,7 +188,7 @@ def page_graph():
             
             all_probabilities.append((selected_name, selected_type, probabilities))
         
-        fig, ax = graph_set_up()
+        fig, ax = graph_set_up(y_axis)
         ax.set_xlabel(x_label, color='white')
         for idx, (name, type_, probs) in enumerate(all_probabilities):
             ax.plot(x_vals, probs, marker=marker_style, linestyle=line_style, color=colors[idx % len(colors)], label=f"P({name})")
@@ -277,6 +278,8 @@ def page_graph():
                 return 1 - hypergeom.cdf(k - 1, N, K, n)
             if y_axis == "5":
                 return hypergeom.cdf(k2, N, K, n) - hypergeom.cdf(k - 1, N, K, n)
+            if y_axis == "6":
+                return K * (n/N)
             return 0
         
         def get_ylabel(y_axis):
@@ -285,7 +288,8 @@ def page_graph():
                 "2": "P(X ≠ k)",
                 "3": "P(X ≤ k)",
                 "4": "P(X ≥ k)",
-                "5": "P(k_1 ≤ X ≤ k_2)"
+                "5": "P(k_1 ≤ X ≤ k_2)",
+                "6": "Expected Number Of Cards"
             }.get(y_axis, "Probability")
         
         console.print("[info]Select number of varying variables:[/info]")
@@ -372,28 +376,31 @@ def page_graph():
                 pause()
                 return
             
-            if y_axis != "5":
-                k = console.input("[prompt]Set k (≥0) > [/prompt]") if not load_settings or 'k' not in settings else str(settings['k'])
-                if not (k.isdigit() and int(k) >= 0):
-                    console.print("[error]Invalid k.[/error]")
-                    pause()
-                    return
-                k = int(k)
-                k2 = 0
+            if y_axis != "6":
+                if y_axis != "5":
+                    k = console.input("[prompt]Set k (≥0) > [/prompt]") if not load_settings or 'k' not in settings else str(settings['k'])
+                    if not (k.isdigit() and int(k) >= 0):
+                        console.print("[error]Invalid k.[/error]")
+                        pause()
+                        return
+                    k = int(k)
+                    k2 = 0
+                else:
+                    k = console.input("[prompt]Set k_1 (≥0) > [/prompt]") if not load_settings or 'k' not in settings else str(settings['k'])
+                    if not (k.isdigit() and int(k) >= 0):
+                        console.print("[error]Invalid k.[/error]")
+                        pause()
+                        return
+                    k = int(k)
+                    k2 = console.input("[prompt]Set k_2 (≥k_1) > [/prompt]") if not load_settings or 'k' not in settings else str(settings['k'])
+                    if not (k2.isdigit() and int(k2) >= k):
+                        console.print("[error]Invalid k.[/error]")
+                        pause()
+                        return
+                    k2 = int(k2)
             else:
-                k = console.input("[prompt]Set k_1 (≥0) > [/prompt]") if not load_settings or 'k' not in settings else str(settings['k'])
-                if not (k.isdigit() and int(k) >= 0):
-                    console.print("[error]Invalid k.[/error]")
-                    pause()
-                    return
-                k = int(k)
-                k2 = console.input("[prompt]Set k_2 (≥k_1) > [/prompt]") if not load_settings or 'k' not in settings else str(settings['k'])
-                if not (k2.isdigit() and int(k2) >= k):
-                    console.print("[error]Invalid k.[/error]")
-                    pause()
-                    return
-                k2 = int(k2)
-            
+                k = None
+                k2 = None
             x = np.arange(x_min, x_max + 1)
             
             def get_param_value(param, val_x, val_vary, val_fixed):
@@ -404,7 +411,7 @@ def page_graph():
                 else:
                     return val_fixed
             
-            fig, ax = graph_set_up()
+            fig, ax = graph_set_up(y_axis)
             
             for i, v in enumerate(varying_vals):
                 y_vals = []
@@ -437,6 +444,8 @@ def page_graph():
                         y_vals.insert(0, 1 if k == 0 else 0)
                     elif y_axis == "5":
                         y_vals.insert(0, 1 if k == 0 else 0)
+                    elif y_axis == "6":
+                        y_vals.insert(0, 0)
                 ax.plot(x, y_vals, marker=marker_style, linestyle=line_style, color=colors[i % len(colors)], label=f"{vary_label} = {v}")
                 ax.scatter(max_x, max_y, color=colors[i % len(colors)], marker='*', s=200, zorder=5)
                 ax.scatter(min_x, min_y, color=colors[i % len(colors)], marker='v', s=200, zorder=5)
@@ -646,8 +655,9 @@ def page_graph():
                 ax.xaxis.set_pane_color((0, 0, 0, 1))
                 ax.yaxis.set_pane_color((0, 0, 0, 1))
                 ax.zaxis.set_pane_color((0, 0, 0, 1))
-                fig.colorbar(surf, ax=ax, label='Probability', pad=0.1, shrink=0.8).ax.yaxis.set_tick_params(color='white', labelcolor='white')
-                plt.title(f"Probability vs {x_label} and {y_label}", color='white')
+                label_for_y_axis = 'Probability' if y_axis != "6" else 'Expected Value'
+                fig.colorbar(surf, ax=ax, label=label_for_y_axis if y_axis != "6" else 'Expected Value', pad=0.1, shrink=0.8).ax.yaxis.set_tick_params(color='white', labelcolor='white')
+                plt.title(f"{label_for_y_axis} vs {x_label} and {y_label}", color='white')
             
             else:
                 ax = fig.add_subplot(111)
@@ -666,7 +676,7 @@ def page_graph():
                 ax.spines['right'].set_visible(False)
                 ax.spines['bottom'].set_linewidth(1.5)
                 ax.spines['left'].set_linewidth(1.5)
-                
+                label_for_y_axis = 'Probability' if y_axis != "6" else 'Expected Value'
                 max_indices = np.where(Z == Z.max())
                 min_indices = np.where(Z == Z.min())
                 for i, j in zip(max_indices[0], max_indices[1]):
@@ -674,14 +684,14 @@ def page_graph():
                 for i, j in zip(min_indices[0], min_indices[1]):
                     ax.text(x_vals[j], y_vals[i], 'Min', color='white', ha='center', va='center', fontsize=8, bbox=dict(facecolor='black', alpha=0.5))
                 
-                plt.title(f"Probability vs {x_label} and {y_label}", color='white')
+                plt.title(f"{label_for_y_axis} vs {x_label} and {y_label}", color='white')
             
             plt.subplots_adjust(left=0.15, right=0.85, top=0.85, bottom=0.15)
             fig.canvas.draw()
             fig.canvas.flush_events()
             
             
-            table = Table(title=f"Probability ({get_ylabel(y_axis)})", show_header=True, header_style="bold white")
+            table = Table(title=f"{label_for_y_axis} ({get_ylabel(y_axis)})", show_header=True, header_style="bold white")
             table.add_column(x_label, style="bold")
             csv_data = [[x_label] + [f"{y_label} = {y_val}" for y_val in y_vals]]
             for y_val in y_vals:
